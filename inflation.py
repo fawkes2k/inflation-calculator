@@ -1,5 +1,7 @@
 from datetime import date
 
+class WrongDateException(RuntimeError): pass
+
 class InflationCalculator():
     def __init__(self):
         """
@@ -33,7 +35,7 @@ class InflationCalculator():
         :return: CPI for given date compared to CPI in December 1981 (1).
         """
         if amount_date < self.__first_date or amount_date > self.__last_date:
-            raise Exception(f'Date must not be before {self.__first_date} or after {self.__last_date}')
+            raise WrongDateException(f'Date must not be before {self.__first_date} or after {self.__last_date}')
         proper_date = date(amount_date.year, amount_date.month, 1)
         return self.__data.get(proper_date)
 
